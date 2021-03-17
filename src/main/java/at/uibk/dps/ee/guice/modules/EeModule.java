@@ -21,6 +21,7 @@ import at.uibk.dps.ee.core.ControlStateListener;
 import at.uibk.dps.ee.core.ModelModificationListener;
 import at.uibk.dps.ee.core.enactable.EnactableStateListener;
 import at.uibk.dps.ee.core.enactable.EnactmentStateListener;
+import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
 
 /**
  * Parent class of all modules used for the configuration of the enactment
@@ -33,6 +34,30 @@ public abstract class EeModule extends Opt4JModule {
 
   protected static final String Opt4JExceptionMessage =
       "This method is from Opt4J and must not be called by a module of the enactment engine. (Sorry for this ugly hack).";
+
+  /**
+   * Adds a function decorator which is to be used when creating functions.
+   * 
+   * @param functionDecorator the decorator to add
+   */
+  public void addFunctionDecoratorFactory(
+      Class<? extends FunctionDecoratorFactory> functionDecorator) {
+    addFunctionDecoratorFactory(binder(), functionDecorator);
+  }
+
+  /**
+   * Adds a function decorator which is to be used when creating functions.
+   * 
+   * @param binder the binder
+   * @param functionDecorator the decorator to add
+   */
+  public static void addFunctionDecoratorFactory(final Binder binder,
+      final Class<? extends FunctionDecoratorFactory> functionDecorator) {
+    Multibinder<FunctionDecoratorFactory> multiBinder =
+        Multibinder.newSetBinder(binder, FunctionDecoratorFactory.class);
+    multiBinder.addBinding().to(functionDecorator);
+  }
+
 
   /**
    * Adds a {@link ModelModificationListener} to be triggered run-time changes of
@@ -129,7 +154,7 @@ public abstract class EeModule extends Opt4JModule {
     multi(EnactableStateListener.class);
     multi(ControlStateListener.class);
     multi(ModelModificationListener.class);
-
+    multi(FunctionDecoratorFactory.class);
     config();
   }
 
