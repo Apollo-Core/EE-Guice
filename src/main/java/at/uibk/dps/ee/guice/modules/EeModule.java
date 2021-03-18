@@ -41,7 +41,7 @@ public abstract class EeModule extends Opt4JModule {
    * @param functionDecorator the decorator to add
    */
   public void addFunctionDecoratorFactory(
-      Class<? extends FunctionDecoratorFactory> functionDecorator) {
+      final Class<? extends FunctionDecoratorFactory> functionDecorator) {
     addFunctionDecoratorFactory(binder(), functionDecorator);
   }
 
@@ -53,7 +53,7 @@ public abstract class EeModule extends Opt4JModule {
    */
   public static void addFunctionDecoratorFactory(final Binder binder,
       final Class<? extends FunctionDecoratorFactory> functionDecorator) {
-    Multibinder<FunctionDecoratorFactory> multiBinder =
+    final Multibinder<FunctionDecoratorFactory> multiBinder =
         Multibinder.newSetBinder(binder, FunctionDecoratorFactory.class);
     multiBinder.addBinding().to(functionDecorator);
   }
