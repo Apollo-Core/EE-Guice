@@ -34,17 +34,10 @@ public class EeConfiguration extends Opt4J {
    * @throws Exception
    */
   public static void main(final String[] args) throws FailureException {
-    if (args.length > 0 && COMMAND_ARGUMENT_START_NO_GUI.equalsIgnoreCase(args[0])) {
-      // directly starts with the given config
-      final String[] argumentArray = new String[args.length - 1];
-      System.arraycopy(args, 1, argumentArray, 0, argumentArray.length);
-      EeStarter.main(argumentArray);
-    } else {
-      // open the configuration GUI
-      searchModules();
-      final EeConfiguration configurator = new EeConfiguration();
-      configurator.start(args);
-    }
+    // open the configuration GUI
+    searchModules();
+    final EeConfiguration configurator = new EeConfiguration();
+    configurator.start(args);
   }
 
   /**
