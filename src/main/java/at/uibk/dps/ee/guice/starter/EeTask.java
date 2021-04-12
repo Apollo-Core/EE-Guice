@@ -19,14 +19,7 @@ public class EeTask extends Opt4JTask {
   public void execute() throws FailureException {
     open();
     EeCoreInjectable eeCore = injector.getInstance(EeCoreInjectable.class);
-    InputDataProvider inputProvider =  new InputDataProvider() {
-      
-      @Override
-      public JsonObject getInputData() {
-        
-        return new JsonObject();
-      }
-    }; //injector.getInstance(InputDataProvider.class);
+    InputDataProvider inputProvider =  injector.getInstance(InputDataProvider.class);
     JsonObject inputData = inputProvider.getInputData();
     eeCore.enactWorkflow(inputData);
     if (closeOnStop) {
