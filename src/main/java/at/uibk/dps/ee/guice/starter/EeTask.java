@@ -8,7 +8,8 @@ import at.uibk.dps.ee.guice.EeCoreInjectable;
 
 /**
  * The {@link EeTask} triggers the enactment of a workflow based on a
- * module-driven configuration of the enactment process. Used for enactments which are activated via the configuration GUI.
+ * module-driven configuration of the enactment process. Used for enactments
+ * which are activated via the configuration GUI.
  * 
  * @author Fedor Smirnov
  *
@@ -18,9 +19,9 @@ public class EeTask extends Opt4JTask {
   @Override
   public void execute() throws FailureException {
     open();
-    EeCoreInjectable eeCore = injector.getInstance(EeCoreInjectable.class);
-    InputDataProvider inputProvider =  injector.getInstance(InputDataProvider.class);
-    JsonObject inputData = inputProvider.getInputData();
+    final EeCoreInjectable eeCore = injector.getInstance(EeCoreInjectable.class);
+    final InputDataProvider inputProvider = injector.getInstance(InputDataProvider.class);
+    final JsonObject inputData = inputProvider.getInputData();
     eeCore.enactWorkflow(inputData);
     if (closeOnStop) {
       close();

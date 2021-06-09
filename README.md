@@ -9,17 +9,17 @@ Project implementing the functionality of the [Google Guice](https://github.com/
 ## Relations to other parts of Apollo-Core
 
 ### Depends On
-+ EE-Core
+  + EE-Core
 
 ### Used By
-+ EE-IO
-+ EE-Enactables
-+ SC-Core
-+ EE-Control
-+ EE-Visualization
-+ EE-Demo
-+ EE-Docker
+  + EE-IO
+  + EE-Enactables
+  + SC-Core
+  + EE-Control
+  + EE-Visualization
+  + EE-Demo
+  + EE-Docker
 
 ### Relevant For
-+ Definition of the abstract module classes (categories in Apollo's configuration GUI)
-+ Definition of the more sophisticated binding structures (e.g., SetBinders) used in Apollo
+  + Definition of the abstract module classes (categories in Apollo's configuration GUI)
+  + Definition of the more sophisticated binding structures (e.g., SetBinders) used in Apollo
