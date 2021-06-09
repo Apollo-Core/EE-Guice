@@ -4,5 +4,22 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # EE-Guice
+Project implementing the functionality of the [Google Guice](https://github.com/google/guice) Modules used to enable configuring Apollo's orchestration via dynamic dependency injection.
 
-Repository defining the main modules used to implement the dynamic dependency injection used in the Apollo EE.
+## Relations to other parts of Apollo-Core
+
+### Depends On
++ EE-Core
+
+### Used By
++ EE-IO
++ EE-Enactables
++ SC-Core
++ EE-Control
++ EE-Visualization
++ EE-Demo
++ EE-Docker
+
+### Relevant For
++ Definition of the abstract module classes (categories in Apollo's configuration GUI)
++ Definition of the more sophisticated binding structures (e.g., SetBinders) used in Apollo
