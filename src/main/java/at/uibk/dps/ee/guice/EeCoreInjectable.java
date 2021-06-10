@@ -6,6 +6,7 @@ import com.google.inject.Inject;
 
 import at.uibk.dps.ee.core.EeCore;
 import at.uibk.dps.ee.core.EnactableProvider;
+import at.uibk.dps.ee.core.LocalResources;
 import at.uibk.dps.ee.core.OutputDataHandler;
 import at.uibk.dps.ee.core.enactable.EnactmentStateListener;
 
@@ -28,10 +29,12 @@ public class EeCoreInjectable extends EeCore {
    *        used to run the enactment
    * @param stateListeners the listeners which react to transitions between
    *        different states of the enactment
+   * @param localResources interfaces for the configuration of the local resources
    */
   @Inject
   public EeCoreInjectable(final OutputDataHandler outputDataHandler,
-      final EnactableProvider enactableProvider, final Set<EnactmentStateListener> stateListeners) {
-    super(outputDataHandler, enactableProvider, stateListeners);
+      final EnactableProvider enactableProvider, final Set<EnactmentStateListener> stateListeners,
+      final Set<LocalResources> localResources) {
+    super(outputDataHandler, enactableProvider, stateListeners, localResources);
   }
 }

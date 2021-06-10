@@ -24,6 +24,7 @@ public class EeTask extends Opt4JTask {
     final JsonObject inputData = inputProvider.getInputData();
     eeCore.enactWorkflow(inputData);
     if (closeOnStop) {
+      eeCore.close();
       close();
     }
   }
