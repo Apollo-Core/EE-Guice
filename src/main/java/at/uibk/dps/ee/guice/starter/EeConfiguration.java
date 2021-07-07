@@ -10,7 +10,6 @@ import org.opt4j.core.start.Opt4J;
 
 import com.google.inject.Module;
 
-import at.uibk.dps.ee.core.exception.FailureException;
 import at.uibk.dps.ee.guice.modules.EeModule;
 
 /**
@@ -33,7 +32,7 @@ public class EeConfiguration extends Opt4J {
    * @param args
    * @throws Exception
    */
-  public static void main(final String[] args) throws FailureException {
+  public static void main(final String[] args) {
     // open the configuration GUI
     searchModules();
     final EeConfiguration configurator = new EeConfiguration();

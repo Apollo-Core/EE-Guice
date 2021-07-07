@@ -3,12 +3,11 @@ package at.uibk.dps.ee.guice;
 import java.util.Set;
 
 import com.google.inject.Inject;
-
+import at.uibk.dps.ee.core.CoreFunction;
 import at.uibk.dps.ee.core.EeCore;
-import at.uibk.dps.ee.core.EnactableProvider;
 import at.uibk.dps.ee.core.LocalResources;
 import at.uibk.dps.ee.core.OutputDataHandler;
-import at.uibk.dps.ee.core.enactable.EnactmentStateListener;
+import at.uibk.dps.ee.core.function.EnactmentStateListener;
 
 /**
  * Class definition with the inject annotation (Apart from that identical with
@@ -33,8 +32,8 @@ public class EeCoreInjectable extends EeCore {
    */
   @Inject
   public EeCoreInjectable(final OutputDataHandler outputDataHandler,
-      final EnactableProvider enactableProvider, final Set<EnactmentStateListener> stateListeners,
-      final Set<LocalResources> localResources) {
-    super(outputDataHandler, enactableProvider, stateListeners, localResources);
+      final Set<EnactmentStateListener> stateListeners,
+      final Set<LocalResources> localResources, CoreFunction coreFunction) {
+    super(outputDataHandler, stateListeners, localResources, coreFunction);
   }
 }

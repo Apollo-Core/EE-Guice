@@ -17,12 +17,10 @@ import com.google.inject.binder.ConstantBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.spi.Message;
 
-import at.uibk.dps.ee.core.ControlStateListener;
 import at.uibk.dps.ee.core.LocalResources;
 import at.uibk.dps.ee.core.ModelModificationListener;
-import at.uibk.dps.ee.core.enactable.EnactableStateListener;
-import at.uibk.dps.ee.core.enactable.EnactmentStateListener;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
+import at.uibk.dps.ee.core.function.EnactmentStateListener;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 
 /**
  * Parent class of all modules used for the configuration of the enactment
@@ -59,29 +57,6 @@ public abstract class EeModule extends Opt4JModule {
     final Multibinder<ModelModificationListener> multiBinder =
         Multibinder.newSetBinder(binder, ModelModificationListener.class);
     multiBinder.addBinding().to(modelModificationListener);
-  }
-
-  /**
-   * Adds a {@link EnactableStateListener} to be triggered during the enactment.
-   * 
-   * @param enactableStateListener the enactable state listener
-   */
-  public void addEnactableStateListener(
-      final Class<? extends EnactableStateListener> enactableStateListener) {
-    addEnactableStateListener(binder(), enactableStateListener);
-  }
-
-  /**
-   * Adds a {@link EnactableStateListener} to be triggered during the enactment.
-   * 
-   * @param binder the binder
-   * @param enactableStateListener the enactable state listener
-   */
-  public static void addEnactableStateListener(final Binder binder,
-      final Class<? extends EnactableStateListener> enactableStateListener) {
-    final Multibinder<EnactableStateListener> multiBinder =
-        Multibinder.newSetBinder(binder, EnactableStateListener.class);
-    multiBinder.addBinding().to(enactableStateListener);
   }
 
   /**
@@ -128,8 +103,6 @@ public abstract class EeModule extends Opt4JModule {
     }
 
     multi(EnactmentStateListener.class);
-    multi(EnactableStateListener.class);
-    multi(ControlStateListener.class);
     multi(ModelModificationListener.class);
     multi(FunctionDecoratorFactory.class);
     multi(LocalResources.class);

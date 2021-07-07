@@ -3,7 +3,7 @@ package at.uibk.dps.ee.guice.modules;
 import org.opt4j.core.config.annotations.Category;
 import com.google.inject.Binder;
 import com.google.inject.multibindings.Multibinder;
-import at.uibk.dps.ee.core.enactable.FunctionDecoratorFactory;
+import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 
 /**
  * Parent class for the modules configuring the enactment functions.
