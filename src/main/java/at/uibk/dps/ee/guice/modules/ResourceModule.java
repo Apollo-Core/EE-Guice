@@ -2,6 +2,7 @@ package at.uibk.dps.ee.guice.modules;
 
 import org.opt4j.core.config.annotations.Category;
 import com.google.inject.Binder;
+import com.google.inject.multibindings.Multibinder;
 import at.uibk.dps.ee.core.LocalResources;
 
 /**
@@ -20,8 +21,11 @@ public abstract class ResourceModule extends EeModule {
    */
   public static void addLocalResources(final Binder binder,
       final Class<? extends LocalResources> localResources) {
+    final Multibinder<LocalResources> multiBinder =
+        Multibinder.newSetBinder(binder, LocalResources.class);
+    multiBinder.addBinding().to(localResources);
   }
-  
+
   /**
    * Adds a {@link LocalResources} interface for local resource configuration.
    * 

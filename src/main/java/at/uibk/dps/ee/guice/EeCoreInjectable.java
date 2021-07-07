@@ -32,8 +32,8 @@ public class EeCoreInjectable extends EeCore {
    */
   @Inject
   public EeCoreInjectable(final OutputDataHandler outputDataHandler,
-      final Set<EnactmentStateListener> stateListeners,
-      final Set<LocalResources> localResources, CoreFunction coreFunction) {
+      final Set<EnactmentStateListener> stateListeners, final Set<LocalResources> localResources,
+      final CoreFunction coreFunction) {
     super(outputDataHandler, stateListeners, localResources, coreFunction);
   }
 }

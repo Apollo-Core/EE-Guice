@@ -16,12 +16,15 @@ public class VertxProvider {
 
   protected final Vertx vertx;
   protected final EventBus eBus;
-  
+
+  /**
+   * Creates a vertx instances which is used to provide a unified context for all
+   * verticles which are created by the classes built by the current injector.
+   */
   @Inject
   public VertxProvider() {
     this.vertx = Vertx.vertx();
     vertx.exceptionHandler(throwable -> {
-      System.err.println("Exception");
       throwable.printStackTrace();
     });
     this.eBus = vertx.eventBus();
