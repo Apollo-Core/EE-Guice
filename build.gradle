@@ -43,7 +43,9 @@ dependencies {
   implementation 'com.github.FedorSmirnov89:opendse:-SNAPSHOT'
 
   // VertX
-  implementation 'io.vertx:vertx-core:4.1.0'
+  implementation 'io.vertx:vertx-core:4.1.1'
+  implementation 'io.vertx:vertx-web:4.1.1'
+  implementation 'io.vertx:vertx-web-client:4.1.1'
 
   // test dependencies
   testCompile group: 'junit', 		name: 'junit', 					version: '4.+'

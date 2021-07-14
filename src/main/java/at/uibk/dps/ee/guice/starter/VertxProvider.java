@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
+import io.vertx.ext.web.client.WebClient;
 
 /**
  * Injectable class to provide the current VertX instance and the event bus.
@@ -16,6 +17,7 @@ public class VertxProvider {
 
   protected final Vertx vertx;
   protected final EventBus eBus;
+  protected final WebClient webClient;
 
   /**
    * Creates a vertx instances which is used to provide a unified context for all
@@ -28,6 +30,7 @@ public class VertxProvider {
       throwable.printStackTrace();
     });
     this.eBus = vertx.eventBus();
+    this.webClient = WebClient.create(vertx);
   }
 
   public Vertx getVertx() {
@@ -36,5 +39,9 @@ public class VertxProvider {
 
   public EventBus geteBus() {
     return eBus;
+  }
+
+  public WebClient getWebClient() {
+    return webClient;
   }
 }
