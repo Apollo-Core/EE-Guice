@@ -1,6 +1,7 @@
 package at.uibk.dps.ee.guice.modules;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import org.opt4j.core.IndividualStateListener;
 import org.opt4j.core.optimizer.OptimizerIterationListener;
 import org.opt4j.core.optimizer.OptimizerStateListener;
@@ -13,27 +14,32 @@ import org.opt4j.core.optimizer.OptimizerStateListener;
  */
 public class EeModuleTest {
 
-	protected class EeModuleMock extends EeModule {
-		@Override
-		protected void config() {
-		}
-	}
+  protected class EeModuleMock extends EeModule {
+    @Override
+    protected void config() {}
+  }
 
-	@Test(expected = IllegalStateException.class)
-	public void testIndiListener() {
-		EeModuleMock tested = new EeModuleMock();
-		tested.addIndividualStateListener(IndividualStateListener.class);
-	}
+  @Test
+  public void testIndiListener() {
+    assertThrows(IllegalStateException.class, () -> {
+      EeModuleMock tested = new EeModuleMock();
+      tested.addIndividualStateListener(IndividualStateListener.class);
+    });
+  }
 
-	@Test(expected = IllegalStateException.class)
-	public void testIterationListener() {
-		EeModuleMock tested = new EeModuleMock();
-		tested.addOptimizerIterationListener(OptimizerIterationListener.class);
-	}
+  @Test
+  public void testIterationListener() {
+    assertThrows(IllegalStateException.class, () -> {
+      EeModuleMock tested = new EeModuleMock();
+      tested.addOptimizerIterationListener(OptimizerIterationListener.class);
+    });
+  }
 
-	@Test(expected = IllegalStateException.class)
-	public void testOptimizerStateListener() {
-		EeModuleMock tested = new EeModuleMock();
-		tested.addOptimizerStateListener(OptimizerStateListener.class);
-	}
+  @Test
+  public void testOptimizerStateListener() {
+    assertThrows(IllegalStateException.class, () -> {
+      EeModuleMock tested = new EeModuleMock();
+      tested.addOptimizerStateListener(OptimizerStateListener.class);
+    });
+  }
 }
