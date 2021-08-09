@@ -17,7 +17,6 @@ public class VertxProvider {
 
   protected final Vertx vertx;
   protected final EventBus eBus;
-  protected final WebClient webClient;
 
   /**
    * Creates a vertx instances which is used to provide a unified context for all
@@ -30,7 +29,6 @@ public class VertxProvider {
       throwable.printStackTrace();
     });
     this.eBus = vertx.eventBus();
-    this.webClient = WebClient.create(vertx);
   }
 
   public Vertx getVertx() {
@@ -42,6 +40,6 @@ public class VertxProvider {
   }
 
   public WebClient getWebClient() {
-    return webClient;
+    return WebClient.create(vertx);
   }
 }
