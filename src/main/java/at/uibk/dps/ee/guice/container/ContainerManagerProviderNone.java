@@ -1,5 +1,6 @@
 package at.uibk.dps.ee.guice.container;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import at.uibk.dps.ee.core.ContainerManager;
 
@@ -12,8 +13,18 @@ import at.uibk.dps.ee.core.ContainerManager;
 @Singleton
 public class ContainerManagerProviderNone implements ContainerManagerProvider {
 
+  protected final ContainerManagerNone containerManager;
+  
+  /**
+   * Injection constructor
+   */
+  @Inject
+  public ContainerManagerProviderNone() {
+    this.containerManager = new ContainerManagerNone();
+  }
+  
   @Override
   public ContainerManager getContainerManager() {
-    throw new IllegalStateException("No adequate Container Manager Provider bound.");
+    return this.containerManager;
   }
 }
