@@ -29,6 +29,9 @@ public class EeTask extends Opt4JTask {
 
     futureResult.onComplete(asyncRes -> {
       latch.countDown();
+      if(asyncRes.failed()) {
+        throw new IllegalStateException("Enactment failed.", asyncRes.cause());
+      }
       if (closeOnStop) {
         eeCore.close();
         close();
