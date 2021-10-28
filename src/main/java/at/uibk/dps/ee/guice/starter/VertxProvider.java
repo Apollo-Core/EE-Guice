@@ -19,8 +19,27 @@ public class VertxProvider {
   protected final EventBus eBus;
 
   /**
+   * Creates a provider which provides access to an existing VertX instance.
+   * 
+   * This constructor is used to manually instantiate a provider to a given vertX
+   * instance.
+   * 
+   * @param vertx the existing vertx instance
+   */
+  public VertxProvider(Vertx vertx) {
+    this.vertx = vertx;
+    vertx.exceptionHandler(throwable -> {
+      throwable.printStackTrace();
+    });
+    this.eBus = vertx.eventBus();
+  }
+
+  /**
    * Creates a vertx instances which is used to provide a unified context for all
    * verticles which are created by the classes built by the current injector.
+   * 
+   * This constructor is used when the {@link VertxProvider} instance is
+   * instantiated by Guice.
    */
   @Inject
   public VertxProvider() {
