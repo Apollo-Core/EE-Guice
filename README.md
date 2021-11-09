@@ -30,5 +30,6 @@ Repository implementing the functionality of the [Google Guice](https://github.c
   + EE-Control
   + EE-Visualization
   + EE-Demo
+  + EE-Deploy
   + EE-Docker
 
