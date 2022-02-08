@@ -16,12 +16,11 @@ import com.google.inject.ConfigurationException;
 import com.google.inject.binder.ConstantBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.spi.Message;
-
+import at.uibk.dps.ee.core.Initializer;
 import at.uibk.dps.ee.core.LocalResources;
 import at.uibk.dps.ee.core.ModelModificationListener;
 import at.uibk.dps.ee.core.function.EnactmentStateListener;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
-import at.uibk.dps.ee.guice.init.InitializerComponent;
 
 /**
  * Parent class of all modules used for the configuration of the enactment
@@ -40,7 +39,7 @@ public abstract class EeModule extends Opt4JModule {
    * 
    * @param initializer the initializer to add
    */
-  public void addInitializer(Class<? extends InitializerComponent> initializer) {
+  public void addInitializer(Class<? extends Initializer> initializer) {
     addInitializer(binder(), initializer);
   }
 
@@ -51,9 +50,8 @@ public abstract class EeModule extends Opt4JModule {
    * @param initializer the initializer to add
    */
   public static void addInitializer(final Binder binder,
-      final Class<? extends InitializerComponent> initializer) {
-    Multibinder<InitializerComponent> multiBinder =
-        Multibinder.newSetBinder(binder, InitializerComponent.class);
+      final Class<? extends Initializer> initializer) {
+    Multibinder<Initializer> multiBinder = Multibinder.newSetBinder(binder, Initializer.class);
     multiBinder.addBinding().to(initializer);
   }
 

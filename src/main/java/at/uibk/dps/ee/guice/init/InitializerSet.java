@@ -1,55 +1,37 @@
 package at.uibk.dps.ee.guice.init;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import com.google.inject.Inject;
 import at.uibk.dps.ee.core.Initializer;
-import at.uibk.dps.ee.guice.starter.VertxProvider;
+import io.vertx.core.CompositeFuture;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
-import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.eventbus.Message;
 
 public class InitializerSet implements Initializer {
 
-  protected static final String INIT_SET_ADDRESS = "initSet";
-
-  protected final Set<String> componentAddresses;
-  protected final Set<String> unfinished;
-  protected final Promise<String> resultPromise;
-  protected final EventBus eBus;
+  protected final Set<Initializer> initializers;
 
   @Inject
-  public InitializerSet(Set<InitializerComponent> initComponents, VertxProvider vProv) {
-    this.eBus = vProv.geteBus();
-    this.unfinished = new HashSet<>();
-    initComponents.forEach(initComp -> unfinished.add(initComp.getReadySignal()));
-    componentAddresses = new HashSet<>();
-    initComponents.forEach(initComp -> componentAddresses.add(initComp.getListenAddress()));
-    this.resultPromise = Promise.promise();
-    eBus.consumer(INIT_SET_ADDRESS, this::readySignalHandler);
-    checkFinished();
+  public InitializerSet(Set<Initializer> initializers) {
+    this.initializers = initializers;
   }
 
-  protected void checkFinished() {
-    if (unfinished.isEmpty()) {
-      resultPromise.complete("init done");
-    }
-  }
-
-  protected void readySignalHandler(Message<String> readySignal) {
-    String signal = readySignal.body();
-    if (unfinished.contains(signal)) {
-      unfinished.remove(signal);
-      checkFinished();
-    } else {
-      throw new IllegalStateException("Unexpected ready signal");
-    }
-  }
-
+  @SuppressWarnings("rawtypes")
   @Override
   public Future<String> initialize() {
-    componentAddresses.forEach(address -> eBus.send(address, "start init"));
+    Promise<String> resultPromise = Promise.promise();
+    List<Future> initFutures = initializers.stream(). //
+        map(Initializer::initialize). //
+        collect(Collectors.toList());
+    CompositeFuture.join(initFutures).onComplete(asyncRes -> {
+      if (asyncRes.succeeded()) {
+        resultPromise.complete();
+      } else {
+        resultPromise.fail(new IllegalStateException("Initialization Error"));
+      }
+    });
     return resultPromise.future();
   }
 }
