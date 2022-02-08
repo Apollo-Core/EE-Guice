@@ -8,6 +8,7 @@ import at.uibk.dps.ee.core.EeCore;
 import at.uibk.dps.ee.core.LocalResources;
 import at.uibk.dps.ee.core.OutputDataHandler;
 import at.uibk.dps.ee.core.function.EnactmentStateListener;
+import at.uibk.dps.ee.guice.init.InitializerSet;
 
 /**
  * Class definition with the inject annotation (Apart from that identical with
@@ -33,7 +34,7 @@ public class EeCoreInjectable extends EeCore {
   @Inject
   public EeCoreInjectable(final OutputDataHandler outputDataHandler,
       final Set<EnactmentStateListener> stateListeners, final Set<LocalResources> localResources,
-      final CoreFunction coreFunction) {
-    super(outputDataHandler, stateListeners, localResources, coreFunction);
+      final CoreFunction coreFunction, final InitializerSet initializer) {
+    super(outputDataHandler, stateListeners, localResources, coreFunction, initializer);
   }
 }

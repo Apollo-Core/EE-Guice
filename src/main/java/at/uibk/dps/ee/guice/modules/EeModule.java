@@ -21,6 +21,7 @@ import at.uibk.dps.ee.core.LocalResources;
 import at.uibk.dps.ee.core.ModelModificationListener;
 import at.uibk.dps.ee.core.function.EnactmentStateListener;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.guice.init.InitializerComponent;
 
 /**
  * Parent class of all modules used for the configuration of the enactment
@@ -33,6 +34,29 @@ public abstract class EeModule extends Opt4JModule {
 
   protected static final String Opt4JExceptionMessage =
       "This method is from Opt4J and must not be called by a module of the enactment engine. (Sorry for this ugly hack).";
+
+  /**
+   * Adds an initializer which is to be run before the enactment
+   * 
+   * @param initializer the initializer to add
+   */
+  public void addInitializer(Class<? extends InitializerComponent> initializer) {
+    addInitializer(binder(), initializer);
+  }
+
+  /**
+   * Adds an initializer which is to be run before the enactment.
+   * 
+   * @param binder the binder
+   * @param initializer the initializer to add
+   */
+  public static void addInitializer(final Binder binder,
+      final Class<? extends InitializerComponent> initializer) {
+    Multibinder<InitializerComponent> multiBinder =
+        Multibinder.newSetBinder(binder, InitializerComponent.class);
+    multiBinder.addBinding().to(initializer);
+  }
+
 
   /**
    * Adds a {@link ModelModificationListener} to be triggered run-time changes of
