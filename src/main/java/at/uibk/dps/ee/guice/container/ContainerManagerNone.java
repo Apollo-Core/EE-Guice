@@ -13,7 +13,7 @@ import io.vertx.core.Future;
  */
 public class ContainerManagerNone implements ContainerManager {
 
-  protected final String exceptionMessage = "Should never be called.";
+  protected static final String exceptionMessage = "Should never be called.";
 
   @Override
   public void initImage(final String imageName) {

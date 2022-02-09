@@ -39,7 +39,7 @@ public abstract class EeModule extends Opt4JModule {
    * 
    * @param initializer the initializer to add
    */
-  public void addInitializer(Class<? extends Initializer> initializer) {
+  public void addInitializer(final Class<? extends Initializer> initializer) {
     addInitializer(binder(), initializer);
   }
 
@@ -51,7 +51,8 @@ public abstract class EeModule extends Opt4JModule {
    */
   public static void addInitializer(final Binder binder,
       final Class<? extends Initializer> initializer) {
-    Multibinder<Initializer> multiBinder = Multibinder.newSetBinder(binder, Initializer.class);
+    final Multibinder<Initializer> multiBinder =
+        Multibinder.newSetBinder(binder, Initializer.class);
     multiBinder.addBinding().to(initializer);
   }
 

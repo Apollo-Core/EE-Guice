@@ -26,7 +26,7 @@ public class VertxProvider {
    * 
    * @param vertx the existing vertx instance
    */
-  public VertxProvider(Vertx vertx) {
+  public VertxProvider(final Vertx vertx) {
     this.vertx = vertx;
     vertx.exceptionHandler(throwable -> {
       throwable.printStackTrace();
@@ -58,6 +58,13 @@ public class VertxProvider {
     return eBus;
   }
 
+  /**
+   * Returns a web client running on the vertX instance configured for this
+   * provider.
+   * 
+   * @return a web client running on the vertX instance configured for this
+   *         provider.
+   */
   public WebClient getWebClient() {
     return WebClient.create(vertx);
   }
