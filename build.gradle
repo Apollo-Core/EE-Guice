@@ -18,7 +18,6 @@ jacoco {
 group 'Apollo-Core-EE-Guice'
 version '1.0-SNAPSHOT'
 
-
 repositories {
   mavenCentral()
 }
