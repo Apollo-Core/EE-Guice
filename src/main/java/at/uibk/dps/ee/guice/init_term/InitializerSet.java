@@ -1,4 +1,4 @@
-package at.uibk.dps.ee.guice.init;
+package at.uibk.dps.ee.guice.init_term;
 
 import java.util.List;
 import java.util.Set;

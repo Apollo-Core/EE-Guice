@@ -17,10 +17,11 @@ import com.google.inject.binder.ConstantBindingBuilder;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.spi.Message;
 import at.uibk.dps.ee.core.Initializer;
-import at.uibk.dps.ee.core.LocalResources;
+import at.uibk.dps.ee.core.Terminator;
 import at.uibk.dps.ee.core.ModelModificationListener;
 import at.uibk.dps.ee.core.function.EnactmentStateListener;
 import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
+import at.uibk.dps.ee.guice.init_term.ManagedComponent;
 
 /**
  * Parent class of all modules used for the configuration of the enactment
@@ -33,6 +34,37 @@ public abstract class EeModule extends Opt4JModule {
 
   protected static final String Opt4JExceptionMessage =
       "This method is from Opt4J and must not be called by a module of the enactment engine. (Sorry for this ugly hack).";
+
+  /**
+   * Adds a managed component (initializer and terminator)
+   * 
+   * @param managedComponent the managed component to add
+   */
+  public void addManagedComponent(final Class<? extends ManagedComponent> managedComponent) {
+    addInitializer(managedComponent);
+    addTerminator(managedComponent);
+  }
+
+  /**
+   * Adds a terminator to be run before the enactment
+   * 
+   * @param terminator the terminator to add
+   */
+  public void addTerminator(final Class<? extends Terminator> terminator) {
+    addTerminator(binder(), terminator);
+  }
+
+  /**
+   * Adds a terminator which is to be run before the enactment.
+   * 
+   * @param binder the binder
+   * @param initializer the initializer to add
+   */
+  public static void addTerminator(final Binder binder,
+      final Class<? extends Terminator> terminator) {
+    final Multibinder<Terminator> multiBinder = Multibinder.newSetBinder(binder, Terminator.class);
+    multiBinder.addBinding().to(terminator);
+  }
 
   /**
    * Adds an initializer which is to be run before the enactment
@@ -128,7 +160,8 @@ public abstract class EeModule extends Opt4JModule {
     multi(EnactmentStateListener.class);
     multi(ModelModificationListener.class);
     multi(FunctionDecoratorFactory.class);
-    multi(LocalResources.class);
+    multi(Initializer.class);
+    multi(Terminator.class);
     config();
   }
 

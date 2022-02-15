@@ -23,17 +23,13 @@ public class EeTask extends Opt4JTask {
     final EeCoreInjectable eeCore = injector.getInstance(EeCoreInjectable.class);
     final InputDataProvider inputProvider = injector.getInstance(InputDataProvider.class);
     final JsonObject inputData = inputProvider.getInputData();
-    final Future<JsonObject> futureResult = eeCore.enactWorkflow(inputData);
+    final Future<String> futureResult = eeCore.enactWorkflow(inputData);
     // to process the EE Task synchronously TODO think about making this optional
     final CountDownLatch latch = new CountDownLatch(1);
 
     futureResult.onComplete(asyncRes -> {
       latch.countDown();
-      if(asyncRes.failed()) {
-        throw new IllegalStateException("Enactment failed.", asyncRes.cause());
-      }
       if (closeOnStop) {
-        eeCore.close();
         close();
       }
     });
