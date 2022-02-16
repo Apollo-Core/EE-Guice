@@ -20,7 +20,6 @@ import at.uibk.dps.ee.core.Initializer;
 import at.uibk.dps.ee.core.Terminator;
 import at.uibk.dps.ee.core.ModelModificationListener;
 import at.uibk.dps.ee.core.function.EnactmentStateListener;
-import at.uibk.dps.ee.core.function.FunctionDecoratorFactory;
 import at.uibk.dps.ee.guice.init_term.ManagedComponent;
 
 /**
@@ -157,12 +156,19 @@ public abstract class EeModule extends Opt4JModule {
       }
     }
 
+    config();
+  }
+
+  /**
+   * Configures the multibinders (necessary to make sure that empty sets are
+   * injected if no module is configured to add the corresponding objects).
+   * 
+   */
+  protected void configureMultiBinders() {
     multi(EnactmentStateListener.class);
     multi(ModelModificationListener.class);
-    multi(FunctionDecoratorFactory.class);
     multi(Initializer.class);
     multi(Terminator.class);
-    config();
   }
 
   /**
