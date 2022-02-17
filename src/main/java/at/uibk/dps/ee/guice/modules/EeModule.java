@@ -155,7 +155,7 @@ public abstract class EeModule extends Opt4JModule {
         }
       }
     }
-
+    configureMultiBinders();
     config();
   }
 
